@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs" 
 import verfiyToken from "../verfiyToken/verfiyToken.js";
+
 export const signup = async (req, res) =>{
     try {
         const { fullName, username, password, gender } = req.body;
@@ -27,13 +28,11 @@ export const signup = async (req, res) =>{
             gender,
             profilePic,
         });
+         await newUser.save();
 
-        await newUser.save();
-        
         // Generate verification token
         verfiyToken(newUser._id, res);
-
-        // Respond with created user details
+         // Respond with created user details
         return res.status(201).json({
             _id: newUser._id,
             fullName: newUser.fullName,
@@ -46,9 +45,29 @@ export const signup = async (req, res) =>{
     }
 }
 
-export const login = (req, res) =>{
-    console.log('signup');
+export const login = async (req, res) =>{
+try { 
+    const {username, password} = req.body;
+    const user = await User.findOne({username});
+    const correctPassword = await bcrypt.compare(password, user?.password);
+    if (!correctPassword) {
+        return res.status(400).json({error: "Wrong password or username"});
+    }
+    verfiyToken(user._id, res);
+    res.status(200).json({
+        _id: user._id,
+        fullName: user.fullName,
+        username: user.username,
+        profilePic: user.profilePic,
+        
+    })
+    console.log("successfully log in")
+} catch (error) {
+    console.error(error);
+    return res.status(500).json({error: "Server error"});
 }
+    return res.status(400).json({error: "User not found"})
+} 
 
 export const logout = (req, res) =>{
     console.log('signup');
