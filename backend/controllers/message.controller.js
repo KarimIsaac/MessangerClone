@@ -31,3 +31,17 @@ export const sendMessage = async(req, res) =>{
         return res.status(500).json({error: "Server error"});
     }
 }
+export const getMessages = async (req, res) => {
+try {
+  const {id:chatUser}= req.params;
+  const senderId = req.user._id 
+
+  const chat = await Chat.findOne({
+    members: {$all: [senderId, chatUser]}.populate(messages)
+    });
+    res.status(200).json(chat.messages)
+} catch (error) {
+    console.error(error);
+    return res.status(500).json({error: "Server error"});
+}
+}
