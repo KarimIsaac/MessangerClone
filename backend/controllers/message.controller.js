@@ -37,9 +37,14 @@ try {
   const senderId = req.user._id 
 
   const chat = await Chat.findOne({
-    members: {$all: [senderId, chatUser]}.populate(messages)
+    members: {$all: [senderId, chatUser]}.populate("messages")
     });
-    res.status(200).json(chat.messages)
+    if(!chat){
+        return res.status(200).json({messages: []})
+    }
+    const messages = chat.messages;
+    res.status(200).json(messages)
+    
 } catch (error) {
     console.error(error);
     return res.status(500).json({error: "Server error"});
