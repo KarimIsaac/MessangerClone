@@ -6,8 +6,8 @@ import Login from "../Login/Login"
 function Home() {
   return (
     <div>
-<Login/>
-    </div>
+<p>Hello</p>
+ </div>
   )
 }
 

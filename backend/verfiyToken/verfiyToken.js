@@ -1,8 +1,10 @@
-import jws from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 const verfiyToken =(userId, res) => {  
-    const token = jws.sign({_id: user._id}, process.env.TOKEN_SECRET)
-    return token;
+    const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+		expiresIn: "15d",
+	});
+
 
 }
 export default verfiyToken

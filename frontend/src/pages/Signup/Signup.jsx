@@ -1,42 +1,47 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import signupHook from '../../hooks/signupHook';
+import GenderCheckbox from "./GenderCheckbox";
 
-const Signup = ({ onRegister }) => {
-  const [fullName, setfullName] = useState('');
-  const [userName, setuserName] = useState('');
+const Signup = () => {
+  const [inputs, setInputs] = useState({
+    fullName: '',
+    userName: '',
+    email: '',
+    password: '',
+    gender: ''
+  });
 
-  const [password, setPassword] = useState('');
-  const [gender, setgender] = useState('');
-    const [inputs, setInputs]= useState({
-      fullName:'',
-      userName:'',
-      email:'',
-      password:'',
-      gender:''
-    })
-  const handleSubmit = (e) => {
+  const { loading, signup, error } = signupHook();
+
+  const handleCheckboxChange = (gender) => {
+    setInputs({ ...inputs, gender });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onRegister({ fullName, userName, password });
+    await signup(inputs);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Register</h2>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <div>
-        <label>fullName:</label>
+        <label>Full Name:</label>
         <input 
           type="text" 
           value={inputs.fullName} 
-          onChange={(e) => setInputs({...inputs, fullName: e.target.value})}
+          onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
           required 
         />
       </div>
       <div>
-        <label>userName:</label>
+        <label>User Name:</label>
         <input 
-          type="userName" 
+          type="text" 
           value={inputs.userName} 
-          onChange={(e) => setInputs({...inputs, userName: e.target.value})}
+          onChange={(e) => setInputs({ ...inputs, userName: e.target.value })}
           required 
         />
       </div>
@@ -45,11 +50,14 @@ const Signup = ({ onRegister }) => {
         <input 
           type="password" 
           value={inputs.password} 
-          onChange={(e) => setInputs({...inputs, password: e.target.value})}
+          onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
           required 
         />
       </div>
-      <button type="submit">Register</button>
+      <GenderCheckbox onCheckboxChange={handleCheckboxChange} selectedGender={inputs.gender} />
+      <button type="submit" disabled={loading}>
+        {loading ? "Registering..." : "Register"}
+      </button>
       <Link to={"/login"}>
         Already have an account?
       </Link>

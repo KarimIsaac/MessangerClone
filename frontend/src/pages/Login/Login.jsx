@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 const Login = ({ onLogin }) => {
-    const [email, setEmail] = useState('');
+    const [userName, setuserName] = useState('');
     const [password, setPassword] = useState('');
   
     const handleSubmit = (e) => {
@@ -14,11 +14,11 @@ const Login = ({ onLogin }) => {
       <form onSubmit={handleSubmit}>
         <h2>Login</h2>
         <div>
-          <label>Email:</label>
+          <label>userName:</label>
           <input 
-            type="email" 
+            type="text" 
             value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
+            onChange={(e) => setuserName(e.target.value)} 
             required 
           />
         </div>

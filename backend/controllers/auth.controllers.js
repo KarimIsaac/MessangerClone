@@ -1,12 +1,12 @@
 import bcrypt from "bcryptjs" 
 import verfiyToken from "../verfiyToken/verfiyToken.js";
-
+import User from "../models/user.js";
 export const signup = async (req, res) =>{
     try {
-        const { fullName, username, password, gender } = req.body;
+        const { fullName, userName, password, gender } = req.body;
 
         // Check if the username already exists
-        const existingUser = await User.findOne({ username });
+        const existingUser = await User.findOne({ userName });
         if (existingUser) {
             return res.status(400).json({ error: "This username already exists" });
         }
@@ -17,13 +17,13 @@ export const signup = async (req, res) =>{
 
         // Set profile picture based on gender
         const profilePic = gender === "male"
-            ? `https://avatar.iran.liara.run/public/boy?username=${username}`
-            : `https://avatar.iran.liara.run/public/girl?username=${username}`;
+            ? `https://avatar.iran.liara.run/public/boy?username=${userName}`
+            : `https://avatar.iran.liara.run/public/girl?username=${userName}`;
 
         // Create new user
         const newUser = new User({
             fullName,
-            username,
+            userName,
             password: hashedPassword,
             gender,
             profilePic,
@@ -36,7 +36,7 @@ export const signup = async (req, res) =>{
         return res.status(201).json({
             _id: newUser._id,
             fullName: newUser.fullName,
-            username: newUser.username,
+            userName: newUser.userName,
             profilePic: newUser.profilePic,
         });
     } catch (error) {
@@ -47,8 +47,8 @@ export const signup = async (req, res) =>{
 
 export const login = async (req, res) =>{
 try { 
-    const {username, password} = req.body;
-    const user = await User.findOne({username});
+    const {userName, password} = req.body;
+    const user = await user.findOne({userName});
     const correctPassword = await bcrypt.compare(password, user?.password);
     if (!correctPassword) {
         return res.status(400).json({error: "Wrong password or username"});
@@ -57,7 +57,7 @@ try {
     res.status(200).json({
         _id: user._id,
         fullName: user.fullName,
-        username: user.username,
+        userName: user.userName,
         profilePic: user.profilePic,
         
     })
