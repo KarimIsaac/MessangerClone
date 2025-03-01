@@ -31,6 +31,7 @@ export const sendMessage = async(req, res) =>{
         return res.status(500).json({error: "Server error"});
     }
 }
+
 export const getMessages = async (req, res) => {
 try {
   const {id:chatUser}= req.params;

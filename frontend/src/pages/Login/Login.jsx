@@ -7,7 +7,7 @@ const Login = ({ onLogin }) => {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      onLogin({ email, password });
+      onLogin({  password, userName });
     };
   
     return (
@@ -17,7 +17,7 @@ const Login = ({ onLogin }) => {
           <label>userName:</label>
           <input 
             type="text" 
-            value={email} 
+            value={userName} 
             onChange={(e) => setuserName(e.target.value)} 
             required 
           />
@@ -39,4 +39,4 @@ const Login = ({ onLogin }) => {
     );
   };
   
-  export default Login;
+export default Login;

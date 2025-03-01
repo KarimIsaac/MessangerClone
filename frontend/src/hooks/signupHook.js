@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 
 const signupHook = () => {
   const [loading, setLoading] = useState(false);
