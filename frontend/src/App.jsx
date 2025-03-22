@@ -7,14 +7,17 @@ import Signup from './pages/Signup/Signup'
 import Login from './pages/Login/Login'
 import Navbar from './components/Navbar/Navbar'
 import {useAuthContext} from './context/authContext'
+
 function App() {
   const {authUser} = useAuthContext();
+  console.log("Auth User:", authUser);
   return(
-    <Routes>
-      <Route path="/" element={authUser ? <Home/> : <Navigate to="/login"/>} />
-      <Route path="/signup" element={authUser ? <Navigate to ="/"/>: <Signup/>} />
-      <Route path="/login" element={authUser ? <Navigate to ="/"/>: <Login/>} />
-    </Routes>
+    <><Navbar /><Routes>
+
+      <Route path="/" element={authUser ? <Home /> : <Navigate to="/login" />} />
+      <Route path="/signup" element={authUser ? <Navigate to="/" /> : <Signup />} />
+      <Route path="/login" element={authUser ? <Navigate to="/" /> : <Login />} />
+    </Routes></>
   )
     
   

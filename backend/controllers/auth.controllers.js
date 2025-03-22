@@ -48,7 +48,7 @@ export const signup = async (req, res) =>{
 export const login = async (req, res) =>{
 try { 
     const {userName, password} = req.body;
-    const user = await user.findOne({userName});
+    const user = await User.findOne({userName});
     const correctPassword = await bcrypt.compare(password, user?.password);
     if (!correctPassword) {
         return res.status(400).json({error: "Wrong password or username"});
@@ -69,6 +69,12 @@ try {
     return res.status(400).json({error: "User not found"})
 } 
 
-export const logout = (req, res) =>{
-    console.log('signup');
+export const logout = (req, res) => {
+    try {
+         res.clearCookie('token'); 
+        return res.status(200).json({ message: "Logged out successfully" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Server error" });
+    }
 }

@@ -3,8 +3,7 @@ import { useAuthContext } from "../context/authContext";
 
 const loginHook = () => {
   const [loading, setLoading] = useState(false);
-  const {setAuthContext} = setAuthContext();
-
+  const { setAuthContext } = useAuthContext();
   const login = async ({ userName, password }) => {
     
     try {
@@ -22,13 +21,13 @@ const loginHook = () => {
         setAuthContext(data);
       
     } catch (error) {
-      setError(error.message);
+      console.log(error.message);
     } 
   };
 
-  return { loading };
+  return { login, loading };
 };
 
-export default signupHook;
+export default loginHook;
 
 

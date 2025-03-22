@@ -4,10 +4,12 @@ import Signup from "../Signup/Signup"
 import Login from "../Login/Login"
 
 function Home() {
+  
   return (
-    <div>
-<p>Hello</p>
- </div>
+    
+   <div>
+      <p>Hello</p>
+    </div>
   )
 }
 

@@ -1,13 +1,14 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-const Login = ({ onLogin }) => {
+import loginHook from "../../hooks/loginHook";
+const Login = () => {
     const [userName, setuserName] = useState('');
     const [password, setPassword] = useState('');
-  
-    const handleSubmit = (e) => {
+  const { login } = loginHook();
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      onLogin({  password, userName });
+      await login({  password, userName });
     };
   
     return (
