@@ -3,7 +3,7 @@ import { useAuthContext } from "../context/authContext";
 
 const loginHook = () => {
   const [loading, setLoading] = useState(false);
-  const { setAuthContext } = useAuthContext();
+  const { setAuthUser } = useAuthContext();
   const login = async ({ userName, password }) => {
     
     try {
@@ -18,7 +18,7 @@ const loginHook = () => {
         throw new Error(data.error);
       }
       localStorage.setItem("chat-user", JSON.stringify(data));
-        setAuthContext(data);
+        setAuthUser(data);
       
     } catch (error) {
       console.log(error.message);

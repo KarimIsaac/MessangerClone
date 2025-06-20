@@ -1,24 +1,19 @@
+// Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LogOutButton from '../../pages/Logout/LogOutButton';
-import { useAuthContext } from '../../context/authContext';
+import LogOutButton from './Logout/LogOutButton';
+import Conversations from '../Converssations/Converssations';
+import { useAuthContext } from '../../context/authContext'; 
 
-function Navbar() {
-    const { authUser } = useAuthContext();
+const Navbar = () => {
+  const { authUser } = useAuthContext();
 
-    return (
-        <nav>
-            <Link to="/">Home</Link>
-            {!authUser ? (
-                <>
-                    <Link to="/signup">Signup</Link>
-                    <Link to="/login">Login</Link>
-                </>
-            ) : (
-                <LogOutButton />
-            )}
-        </nav>
-    );
-}
+  return (
+    <>
+      <Conversations />
+      {authUser && <LogOutButton />}
+    </>
+  );
+};
 
 export default Navbar;

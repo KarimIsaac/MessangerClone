@@ -66,7 +66,7 @@ try {
     console.error(error);
     return res.status(500).json({error: "Server error"});
 }
-    return res.status(400).json({error: "User not found"})
+    
 } 
 
 export const logout = (req, res) => {

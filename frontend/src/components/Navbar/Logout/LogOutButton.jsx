@@ -1,5 +1,5 @@
 import React from 'react'
-import logoutHook from '../../hooks/logoutHook';
+import logoutHook from '../../../hooks/logoutHook';
 
 function LogOutButton() {
     const { logout } = logoutHook();

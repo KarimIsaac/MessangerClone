@@ -1,4 +1,5 @@
 import express from "express"
+dotenv.config();
 import cors from "cors"
 import dotenv from "dotenv"
 import routes from "./routes/auth.routes.js";
@@ -14,7 +15,7 @@ app.use(cors({
     origin: 'http://localhost:3000', 
     credentials: true, 
 }));
-dotenv.config();
+
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", routes);
