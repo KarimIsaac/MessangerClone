@@ -5,12 +5,13 @@ const Conversations = () => {
     console.log(conversations);
  	return (
  		<div className='py-2 flex flex-col overflow-auto'>
- 			<Conversation />
-			<Conversation />
- 			<Conversation />
- 			<Conversation />
- 			<Conversation />
- 			<Conversation />
+ 			{conversations.map((conversation) => (
+ 				<Conversation
+ 					key={conversation._id}
+ 					conversation={conversation}
+ 				/>
+ 			))}
+ 			<div className='divider my-0 py-0 h-1' />
  		</div>
  	);
  };
